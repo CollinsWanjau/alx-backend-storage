@@ -10,7 +10,7 @@ def schools_by_topic(mongo_collection, topic):
     topic_filter = {
         'topics': {
             '$elemMatch': {
-                '$eq': topic
+                '$eq': topic,
             },
         },
     }
