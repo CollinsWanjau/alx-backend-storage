@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable
 '''
 0. Writing strings to Redis
 '''
@@ -28,4 +28,9 @@ class Cache:
         return self.get(key, fn=lambda x: x.decode("utf-8"))
 
     def get_int(self, key: str) -> int:
-        return self.get(key, fn=lambda x: int(x))
+       value = self._redis.get(key)
+       try:
+            value = int(value.decode("utf-8"))
+       except Exception:
+            value = 0
+       return value
